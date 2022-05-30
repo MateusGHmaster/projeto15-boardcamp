@@ -36,6 +36,18 @@ export async function insertGame (req, res) {
 
     try {
 
+        const result = await connection.query(`
+
+            SELECT id FROM categories WHERE id=$1
+
+        `, [game.categoryId]);
+
+        if (result.rowCount === 0) {
+
+            return res.sendStatus(400);
+
+        }
+
         await connection.query(`
         
             INSERT INTO games(name, image, "stockTotal", "categoryId", "pricePerDay") VALUES ($1, $2, $3, $4, $5)
