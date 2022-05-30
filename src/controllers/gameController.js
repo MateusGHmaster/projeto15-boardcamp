@@ -13,14 +13,15 @@ export async function getGames (req, res) {
         if (name) {
 
             params.push(`${name}%`);
-            where += `WHERE games.name ILIKE $${params.length}`;
+            where += ` WHERE games.name ILIKE $${params.length}`;
 
         }
 
         const result = await connection.query(`
     
-            SELECT games.*, categories.name AS "categoryName" FROM games JOIN categories ON contegories.id=games."categoryId"${where}
-
+            SELECT games.*, categories.name AS "categoryName" FROM games
+            JOIN categories ON categories.id=games."categoryId"
+            ${where}
         `, params);
 
         res.send(result.rows).status(201);

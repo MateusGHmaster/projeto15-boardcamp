@@ -58,7 +58,7 @@ export async function getRent (req, res) {
 
         if (params.length > 0) {
 
-            where += `WHERE ${selection.join(" AND ")}`;
+            where += ` WHERE ${selection.join(" AND ")}`;
 
         }
 

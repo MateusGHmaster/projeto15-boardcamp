@@ -2,9 +2,9 @@ import Joi from 'joi';
 
 const rentSchema = Joi.object({
 
-    customerId: Joi.number().required(),
-    gameId: Joi.number().required(),
-    daysRented: Joi.number().required()
+    customerId: Joi.string().required(),
+    gameId: Joi.string().required(),
+    daysRented: Joi.string().required()
 
 });
 
