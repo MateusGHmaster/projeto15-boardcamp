@@ -1,4 +1,5 @@
-import { connection } from '../database.js';
+import connection from '../database.js';
+import categorySchema from '../schemas/categorySchema.js';
 
 export async function getCategory (req, res) {
 
@@ -23,6 +24,15 @@ export async function getCategory (req, res) {
 export async function insertCetegory (req, res) {
 
     try {
+
+        const category = req.body;
+        const validateCategory = categorySchema.validate(category);
+
+        if (validateCategory.error) {
+
+            return res.sendStatus(400);
+
+        }
 
         const result = await connection.query(`
         

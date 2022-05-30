@@ -1,4 +1,5 @@
-import { connection } from '../database.js';
+import connection from '../database.js';
+import customerSchema from '../schemas/customerSchema.js';
 
 export async function getCustomer (req, res) {
 
@@ -61,6 +62,16 @@ export async function getCustomerById (req, res) {
 export async function insertCustomer (req, res) {
 
     try {
+
+        const customer = req.body;
+
+        const validateCustomer = customerSchema.validate(customer);
+
+        if (validateCustomer.error) {
+
+            return res.sendStatus(400);
+
+        }
 
         const result = await connection.query(`
         

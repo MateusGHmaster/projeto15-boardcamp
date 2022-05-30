@@ -1,14 +1,14 @@
-import categoryRouter from 'categoryRouter.js';
-import customerRouter from 'customerRouter.js';
-import gameRouter from 'gameRouter.js';
-import rentRouter from 'rentRouter.js';
+import categoryRouter from './categoryRouter.js';
+import customerRouter from './customerRouter.js';
+import gameRouter from './gameRouter.js';
+import rentRouter from './rentRouter.js';
 import { Router } from 'express';
 
-const router = Router();
+const routers = Router();
 
-router.use(categoryRouter);
-router.use(customerRouter);
-router.use(gameRouter);
-router.use(rentRouter);
+routers.use(categoryRouter);
+routers.use(customerRouter);
+routers.use(gameRouter);
+routers.use(rentRouter);
 
-export default router;
+export default routers;

@@ -1,4 +1,5 @@
-import { connection } from '../database.js';
+import connection from '../database.js';
+import gameSchema from '../schemas/gameSchema.js';
 
 export async function getGames (req, res) {
 
@@ -36,6 +37,16 @@ export async function insertGame (req, res) {
 
     try {
 
+        const game = req.body;
+
+        const validateGame = gameSchema.validate(game);
+
+        if (validateGame.error) {
+
+            return res.sendStatus(400);
+
+        }
+
         const result = await connection.query(`
 
             SELECT id FROM categories WHERE id=$1
@@ -52,7 +63,7 @@ export async function insertGame (req, res) {
         
             INSERT INTO games(name, image, "stockTotal", "categoryId", "pricePerDay") VALUES ($1, $2, $3, $4, $5)
         
-        `, [game.name, game.image, Number(game.stockTotal), game.categoryId, Number(game.pricePerDay)]);
+        `, [game.name, game.image, game.stockTotal, game.categoryId, game.pricePerDay]);
 
         res.sendStatus(201);
 
